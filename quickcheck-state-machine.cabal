@@ -48,7 +48,7 @@ library
       Paths_quickcheck_state_machine
   hs-source-dirs:
       src
-  ghc-options: -fno-ignore-asserts -Weverything -Wno-missing-exported-signatures -Wno-missing-import-lists -Wno-missed-specialisations -Wno-all-missed-specialisations -Wno-unsafe -Wno-safe -Wno-missing-local-signatures -Wno-monomorphism-restriction -Wno-prepositive-qualified-module -Wno-missing-safe-haskell-mode
+  ghc-options: -fno-ignore-asserts -Weverything -Wno-missing-kind-signatures -Wno-missing-exported-signatures -Wno-missing-import-lists -Wno-missed-specialisations -Wno-all-missed-specialisations -Wno-unsafe -Wno-safe -Wno-missing-local-signatures -Wno-monomorphism-restriction -Wno-prepositive-qualified-module -Wno-missing-safe-haskell-mode
   build-depends:
       QuickCheck
     , ansi-wl-pprint

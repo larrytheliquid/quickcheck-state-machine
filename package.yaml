@@ -44,6 +44,7 @@ dependencies:
 ghc-options:
 - -fno-ignore-asserts
 - -Weverything
+- -Wno-missing-kind-signatures
 - -Wno-missing-exported-signatures
 - -Wno-missing-import-lists
 - -Wno-missed-specialisations
