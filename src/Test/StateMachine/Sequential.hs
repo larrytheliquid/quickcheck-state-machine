@@ -321,7 +321,7 @@ shrinkAndValidate StateMachine { precondition, transition, mock, shrinker } =
     remapVars scope (Symbolic v) = Symbolic <$> M.lookup v scope
 
 runCommands :: (Show (cmd Concrete), Show (resp Concrete))
-            => (Rank2.Traversable cmd, Rank2.Foldable resp)
+            => (Rank2.Traversable cmd, Rank2.Traversable resp)
             => (MonadMask m, MonadIO m)
             => StateMachine model cmd m resp
             -> Commands cmd resp
@@ -329,7 +329,7 @@ runCommands :: (Show (cmd Concrete), Show (resp Concrete))
 runCommands sm = runCommandsWithSetup (pure sm)
 
 runCommandsWithSetup :: (Show (cmd Concrete), Show (resp Concrete))
-                     => (Rank2.Traversable cmd, Rank2.Foldable resp)
+                     => (Rank2.Traversable cmd, Rank2.Traversable resp)
                      => (MonadMask m, MonadIO m)
                      => m (StateMachine model cmd m resp)
                      -> Commands cmd resp
@@ -337,7 +337,7 @@ runCommandsWithSetup :: (Show (cmd Concrete), Show (resp Concrete))
 runCommandsWithSetup msm cmds = run $ runCommands' msm cmds
 
 runCommands' :: (Show (cmd Concrete), Show (resp Concrete))
-             => (Rank2.Traversable cmd, Rank2.Foldable resp)
+             => (Rank2.Traversable cmd, Rank2.Traversable resp)
              => (MonadMask m, MonadIO m)
              => m (StateMachine model cmd m resp)
              -> Commands cmd resp
@@ -374,7 +374,7 @@ data Check
   | CheckNothing
 
 executeCommands :: (Show (cmd Concrete), Show (resp Concrete))
-                => (Rank2.Traversable cmd, Rank2.Foldable resp)
+                => (Rank2.Traversable cmd, Rank2.Traversable resp)
                 => (MonadCatch m, MonadIO m)
                 => StateMachine model cmd m resp
                 -> TChan (Pid, HistoryEvent cmd resp)
@@ -411,14 +411,16 @@ executeCommands StateMachine {..} hchan pid check =
                 return $ MockSemanticsMismatch err
               else do
                 atomically (writeTChan hchan (pid, Response cresp))
-                case (check, logic (postcondition cmodel ccmd cresp)) of
+                let env' = insertConcretes vars cvars env
+                let (sresp, counter') = runGenSym (mock smodel scmd) counter
+                let sresp' = fromRight (error "executeCommands: impossible") (reify env sresp)
+                case (check, logic (postcondition cmodel ccmd (sresp', cresp))) of
                   (CheckEverything, VFalse ce) -> return (PostconditionFailed (show ce))
                   _otherwise ->
                     case (check, logic (fromMaybe (const Top) invariant cmodel)) of
                       (CheckEverything, VFalse ce') -> return (InvariantBroken (show ce'))
                       _otherwise                    -> do
-                        let (sresp, counter') = runGenSym (mock smodel scmd) counter
-                        put ( insertConcretes vars cvars env
+                        put ( env'
                             , transition smodel scmd sresp
                             , counter'
                             , transition cmodel ccmd cresp
@@ -600,7 +602,7 @@ saveCommands dir cmds prop = go `whenFail` prop
       putStrLn ""
 
 runSavedCommands :: (Show (cmd Concrete), Show (resp Concrete))
-                 => (Rank2.Traversable cmd, Rank2.Foldable resp)
+                 => (Rank2.Traversable cmd, Rank2.Traversable resp)
                  => (MonadMask m, MonadIO m)
                  => (Read (cmd Symbolic), Read (resp Symbolic))
                  => StateMachine model cmd m resp

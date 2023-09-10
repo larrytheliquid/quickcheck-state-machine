@@ -498,7 +498,7 @@ shrinkAndValidateNParallel sm = \shouldShrink  (ParallelCommands prefix suffixes
 ------------------------------------------------------------------------
 
 runParallelCommands :: (Show (cmd Concrete), Show (resp Concrete))
-                    => (Rank2.Traversable cmd, Rank2.Foldable resp)
+                    => (Rank2.Traversable cmd, Rank2.Traversable resp)
                     => (MonadMask m, MonadUnliftIO m)
                     => StateMachine model cmd m resp
                     -> ParallelCommands cmd resp
@@ -506,7 +506,7 @@ runParallelCommands :: (Show (cmd Concrete), Show (resp Concrete))
 runParallelCommands = runParallelCommandsNTimes 10
 
 runParallelCommandsWithSetup :: (Show (cmd Concrete), Show (resp Concrete))
-                    => (Rank2.Traversable cmd, Rank2.Foldable resp)
+                    => (Rank2.Traversable cmd, Rank2.Traversable resp)
                     => (MonadMask m, MonadUnliftIO m)
                     => m (StateMachine model cmd m resp)
                     -> ParallelCommands cmd resp
@@ -514,7 +514,7 @@ runParallelCommandsWithSetup :: (Show (cmd Concrete), Show (resp Concrete))
 runParallelCommandsWithSetup = runParallelCommandsNTimesWithSetup 10
 
 runParallelCommands' :: (Show (cmd Concrete), Show (resp Concrete))
-                     => (Rank2.Traversable cmd, Rank2.Foldable resp)
+                     => (Rank2.Traversable cmd, Rank2.Traversable resp)
                      => (MonadMask m, MonadUnliftIO m)
                      => m (StateMachine model cmd m resp)
                      -> (cmd Concrete -> resp Concrete)
@@ -523,7 +523,7 @@ runParallelCommands' :: (Show (cmd Concrete), Show (resp Concrete))
 runParallelCommands' = runParallelCommandsNTimes' 10
 
 runNParallelCommands :: (Show (cmd Concrete), Show (resp Concrete))
-                     => (Rank2.Traversable cmd, Rank2.Foldable resp)
+                     => (Rank2.Traversable cmd, Rank2.Traversable resp)
                      => (MonadMask m, MonadUnliftIO m)
                      => StateMachine model cmd m resp
                      -> NParallelCommands cmd resp
@@ -531,7 +531,7 @@ runNParallelCommands :: (Show (cmd Concrete), Show (resp Concrete))
 runNParallelCommands = runNParallelCommandsNTimes 10
 
 runNParallelCommandsWithSetup :: (Show (cmd Concrete), Show (resp Concrete))
-                     => (Rank2.Traversable cmd, Rank2.Foldable resp)
+                     => (Rank2.Traversable cmd, Rank2.Traversable resp)
                      => (MonadMask m, MonadUnliftIO m)
                      => m (StateMachine model cmd m resp)
                      -> NParallelCommands cmd resp
@@ -539,7 +539,7 @@ runNParallelCommandsWithSetup :: (Show (cmd Concrete), Show (resp Concrete))
 runNParallelCommandsWithSetup = runNParallelCommandsNTimesWithSetup 10
 
 runParallelCommandsNTimes :: (Show (cmd Concrete), Show (resp Concrete))
-                          => (Rank2.Traversable cmd, Rank2.Foldable resp)
+                          => (Rank2.Traversable cmd, Rank2.Traversable resp)
                           => (MonadMask m, MonadUnliftIO m)
                           => Int -- ^ How many times to execute the parallel program.
                           -> StateMachine model cmd m resp
@@ -548,7 +548,7 @@ runParallelCommandsNTimes :: (Show (cmd Concrete), Show (resp Concrete))
 runParallelCommandsNTimes n sm = runParallelCommandsNTimesWithSetup n (pure sm)
 
 runParallelCommandsNTimesWithSetup :: (Show (cmd Concrete), Show (resp Concrete))
-                          => (Rank2.Traversable cmd, Rank2.Foldable resp)
+                          => (Rank2.Traversable cmd, Rank2.Traversable resp)
                           => (MonadMask m, MonadUnliftIO m)
                           => Int -- ^ How many times to execute the parallel program.
                           -> m (StateMachine model cmd m resp)
@@ -568,7 +568,7 @@ runParallelCommandsNTimesWithSetup n msm cmds =
     return (hist, model, logicReason (combineReasons [reason1, reason2]) .&& linearise sm' hist)
 
 runParallelCommandsNTimes' :: (Show (cmd Concrete), Show (resp Concrete))
-                           => (Rank2.Traversable cmd, Rank2.Foldable resp)
+                           => (Rank2.Traversable cmd, Rank2.Traversable resp)
                            => (MonadMask m, MonadUnliftIO m)
                            => Int -- ^ How many times to execute the parallel program.
                            -> m (StateMachine model cmd m resp)
@@ -591,7 +591,7 @@ runParallelCommandsNTimes' n msm complete cmds =
 
 
 runNParallelCommandsNTimes :: (Show (cmd Concrete), Show (resp Concrete))
-                           => (Rank2.Traversable cmd, Rank2.Foldable resp)
+                           => (Rank2.Traversable cmd, Rank2.Traversable resp)
                            => (MonadMask m, MonadUnliftIO m)
                            => Int -- ^ How many times to execute the parallel program.
                            -> StateMachine model cmd m resp
@@ -600,7 +600,7 @@ runNParallelCommandsNTimes :: (Show (cmd Concrete), Show (resp Concrete))
 runNParallelCommandsNTimes n sm = runNParallelCommandsNTimesWithSetup n (pure sm)
 
 runNParallelCommandsNTimesWithSetup :: (Show (cmd Concrete), Show (resp Concrete))
-                           => (Rank2.Traversable cmd, Rank2.Foldable resp)
+                           => (Rank2.Traversable cmd, Rank2.Traversable resp)
                            => (MonadMask m, MonadUnliftIO m)
                            => Int -- ^ How many times to execute the parallel program.
                            -> m (StateMachine model cmd m resp)
@@ -620,7 +620,7 @@ runNParallelCommandsNTimesWithSetup n msm cmds =
     return (hist, model, logicReason reason .&& linearise sm' hist)
 
 runNParallelCommandsNTimes' :: (Show (cmd Concrete), Show (resp Concrete))
-                            => (Rank2.Traversable cmd, Rank2.Foldable resp)
+                            => (Rank2.Traversable cmd, Rank2.Traversable resp)
                             => (MonadMask m, MonadUnliftIO m)
                             => Int -- ^ How many times to execute the parallel program.
                             -> m (StateMachine model cmd m resp)
@@ -642,7 +642,7 @@ runNParallelCommandsNTimes' n msm complete cmds =
     return (hist, model, linearise sm' hist')
 
 executeParallelCommands :: (Show (cmd Concrete), Show (resp Concrete))
-                        => (Rank2.Traversable cmd, Rank2.Foldable resp)
+                        => (Rank2.Traversable cmd, Rank2.Traversable resp)
                         => (MonadMask m, MonadUnliftIO m)
                         => StateMachine model cmd m resp
                         -> ParallelCommands cmd resp
@@ -723,7 +723,7 @@ logicReason :: Reason -> Logic
 logicReason Ok = Top
 logicReason r  = Annotate (show r) Bot
 
-executeNParallelCommands :: (Rank2.Traversable cmd, Show (cmd Concrete), Rank2.Foldable resp)
+executeNParallelCommands :: (Rank2.Traversable cmd, Show (cmd Concrete), Rank2.Traversable resp)
                          => Show (resp Concrete)
                          => (MonadMask m, MonadUnliftIO m)
                          => StateMachine model cmd m resp
@@ -795,7 +795,7 @@ linearise StateMachine { transition,  postcondition, initModel } = go . unHistor
     step _model (Node (Crash _cmd _err _pid) _roses) =
       error "Not implemented yet, see issue #162 for more details."
     step model (Node (Operation cmd resp _) roses)   =
-      postcondition model cmd resp .&&
+      postcondition model cmd (resp, resp) .&&
         exists' roses (step (transition model cmd resp))
 
 exists' :: Show a => [a] -> (a -> Logic) -> Logic

@@ -30,9 +30,6 @@ library
       Test.StateMachine.ConstructorName
       Test.StateMachine.DotDrawing
       Test.StateMachine.Labelling
-      Test.StateMachine.Lockstep.Auxiliary
-      Test.StateMachine.Lockstep.NAry
-      Test.StateMachine.Lockstep.Simple
       Test.StateMachine.Logic
       Test.StateMachine.Markov
       Test.StateMachine.Parallel

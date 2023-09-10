@@ -348,7 +348,7 @@ historyObservations StateMachine { initModel, transition, postcondition } markov
           state' = partition model'
           incr   = Map.insertWith (\_new old -> old + 1) (state, state') 1
         in
-          if boolean (postcondition model cmd resp)
+          if boolean (postcondition model cmd (resp, resp))
           then go model' (incr ss) fs        ops
           else go model' ss        (incr fs) ops
 
