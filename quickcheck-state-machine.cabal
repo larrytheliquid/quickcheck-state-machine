@@ -1,100 +1,74 @@
-name:                quickcheck-state-machine
-version:             0.7.4
-synopsis:            Test monadic programs using state machine based models
-description:         See README at <https://github.com/stevana/quickcheck-state-machine#readme>
-homepage:            https://github.com/stevana/quickcheck-state-machine#readme
-license:             BSD3
-license-file:        LICENSE
-author:              Stevan Andjelkovic
-maintainer:          Stevan Andjelkovic <stevan.andjelkovic@strath.ac.uk>
-copyright:           Copyright (C) 2017-2018, ATS Advanced Telematic Systems GmbH;
-                                   2018-2019, HERE Europe B.V.;
-                                   2019-2023, Stevan Andjelkovic.
-category:            Testing
-build-type:          Simple
-extra-source-files:  README.md
-                   , CHANGELOG.md
-                   , CONTRIBUTING.md
-cabal-version:       >=1.10
-tested-with:         GHC == 8.4.3, GHC == 8.6.5, GHC == 8.8.3, GHC == 8.10.7, GHC == 9.6.1
+cabal-version: 1.12
 
-library
-  hs-source-dirs:      src
-  ghc-options:
-              -Weverything
-              -Wno-missing-exported-signatures
-              -Wno-missing-import-lists
-              -Wno-missed-specialisations
-              -Wno-all-missed-specialisations
-              -Wno-unsafe
-              -Wno-safe
-              -Wno-missing-local-signatures
-              -Wno-monomorphism-restriction
-              -Wno-prepositive-qualified-module
-              -Wno-missing-safe-haskell-mode
-              -Wno-missing-kind-signatures
-  exposed-modules:     Test.StateMachine
-                     , Test.StateMachine.BoxDrawer
-                     , Test.StateMachine.ConstructorName
-                     , Test.StateMachine.DotDrawing
-                     , Test.StateMachine.Labelling
-                     , Test.StateMachine.Lockstep.Auxiliary
-                     , Test.StateMachine.Lockstep.NAry
-                     , Test.StateMachine.Lockstep.Simple
-                     , Test.StateMachine.Logic
-                     , Test.StateMachine.Markov
-                     , Test.StateMachine.Parallel
-                     , Test.StateMachine.Sequential
-                     , Test.StateMachine.Types
-                     , Test.StateMachine.Types.Environment
-                     , Test.StateMachine.Types.GenSym
-                     , Test.StateMachine.Types.History
-                     , Test.StateMachine.Types.Rank2
-                     , Test.StateMachine.Types.References
-                     , Test.StateMachine.Utils
-                     , Test.StateMachine.Z
-  other-modules:
-      Paths_quickcheck_state_machine
-  build-depends:
-        ansi-wl-pprint >=0.6.7.3,
-        base >=4.10 && <5,
-        containers >=0.5.7.1,
-        directory >=1.0.0.0,
-        exceptions >=0.8.3,
-        filepath >=1.0,
-        generic-data >=0.3.0.0,
-        graphviz >= 2999.20.0.3,
-        markov-chain-usage-model >=0.0.0,
-        matrix >=0.3.5.0,
-        mtl >=2.2.1,
-        time >=1.7,
-        pretty-show >=1.6.16,
-        process >=1.2.0.0,
-        QuickCheck >=2.12,
-        random >=1.1,
-        sop-core,
-        split,
-        text,
-        tree-diff >=0.0.2.1,
-        unliftio >=0.2.7.0
-  default-language:    Haskell2010
+-- This file has been generated from package.yaml by hpack version 0.35.1.
+--
+-- see: https://github.com/sol/hpack
 
-  ghc-options:
-              -threaded -rtsopts -with-rtsopts=-N
-              -fno-ignore-asserts
-              -Weverything
-              -Wno-missing-exported-signatures
-              -Wno-missing-import-lists
-              -Wno-missed-specialisations
-              -Wno-all-missed-specialisations
-              -Wno-unsafe
-              -Wno-safe
-              -Wno-missing-local-signatures
-              -Wno-monomorphism-restriction
-              -Wno-prepositive-qualified-module
-              -Wno-missing-safe-haskell-mode
-  default-language:    Haskell2010
+name:           quickcheck-state-machine
+version:        0.8.0
+description:    Please see the README on GitHub at <https://github.com/larrytheliquid/coscript#readme>
+homepage:       https://github.com/stevana/quickcheck-state-machine#readme
+bug-reports:    https://github.com/stevana/quickcheck-state-machine/issues
+author:         Stevan Andjelkovic
+maintainer:     stevan.andjelkovic@strath.ac.uk
+copyright:      Stevan Andjelkovic
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+    CHANGELOG.md
 
 source-repository head
-  type:     git
+  type: git
   location: https://github.com/stevana/quickcheck-state-machine
+
+library
+  exposed-modules:
+      Test.StateMachine
+      Test.StateMachine.BoxDrawer
+      Test.StateMachine.ConstructorName
+      Test.StateMachine.DotDrawing
+      Test.StateMachine.Labelling
+      Test.StateMachine.Lockstep.Auxiliary
+      Test.StateMachine.Lockstep.NAry
+      Test.StateMachine.Lockstep.Simple
+      Test.StateMachine.Logic
+      Test.StateMachine.Markov
+      Test.StateMachine.Parallel
+      Test.StateMachine.Sequential
+      Test.StateMachine.Types
+      Test.StateMachine.Types.Environment
+      Test.StateMachine.Types.GenSym
+      Test.StateMachine.Types.History
+      Test.StateMachine.Types.Rank2
+      Test.StateMachine.Types.References
+      Test.StateMachine.Utils
+      Test.StateMachine.Z
+  other-modules:
+      Paths_quickcheck_state_machine
+  hs-source-dirs:
+      src
+  ghc-options: -fno-ignore-asserts -Weverything -Wno-missing-exported-signatures -Wno-missing-import-lists -Wno-missed-specialisations -Wno-all-missed-specialisations -Wno-unsafe -Wno-safe -Wno-missing-local-signatures -Wno-monomorphism-restriction -Wno-prepositive-qualified-module -Wno-missing-safe-haskell-mode
+  build-depends:
+      QuickCheck
+    , ansi-wl-pprint
+    , base >=4.7 && <5
+    , containers
+    , directory
+    , exceptions
+    , filepath
+    , generic-data
+    , graphviz
+    , markov-chain-usage-model
+    , matrix
+    , mtl
+    , pretty-show
+    , process
+    , random
+    , sop-core
+    , split
+    , text
+    , time
+    , tree-diff
+    , unliftio
+  default-language: Haskell2010

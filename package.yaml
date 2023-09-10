@@ -1,0 +1,60 @@
+name:                quickcheck-state-machine
+version:             0.8.0
+github:              "stevana/quickcheck-state-machine"
+author:              "Stevan Andjelkovic"
+maintainer:          "stevan.andjelkovic@strath.ac.uk"
+copyright:           "Stevan Andjelkovic"
+
+extra-source-files:
+- README.md
+- CHANGELOG.md
+
+# Metadata used when publishing your package
+# synopsis:            Short description of your package
+# category:            Web
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description:         Please see the README on GitHub at <https://github.com/larrytheliquid/coscript#readme>
+
+dependencies:
+- base >= 4.7 && < 5
+- ansi-wl-pprint
+- containers
+- directory
+- exceptions
+- filepath
+- generic-data
+- graphviz
+- markov-chain-usage-model
+- matrix
+- mtl
+- pretty-show
+- process
+- QuickCheck
+- random
+- sop-core
+- split
+- text
+- time
+- tree-diff
+- unliftio
+
+ghc-options:
+- -fno-ignore-asserts
+- -Weverything
+- -Wno-missing-exported-signatures
+- -Wno-missing-import-lists
+- -Wno-missed-specialisations
+- -Wno-all-missed-specialisations
+- -Wno-unsafe
+- -Wno-safe
+- -Wno-missing-local-signatures
+- -Wno-monomorphism-restriction
+- -Wno-prepositive-qualified-module
+- -Wno-missing-safe-haskell-mode
+
+library:
+  source-dirs: src
+
