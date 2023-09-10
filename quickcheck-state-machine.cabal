@@ -12,6 +12,7 @@ bug-reports:    https://github.com/stevana/quickcheck-state-machine/issues
 author:         Stevan Andjelkovic
 maintainer:     stevan.andjelkovic@strath.ac.uk
 copyright:      Stevan Andjelkovic
+license:        MIT
 license-file:   LICENSE
 build-type:     Simple
 extra-source-files:

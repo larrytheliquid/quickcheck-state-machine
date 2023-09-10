@@ -4,6 +4,7 @@ github:              "stevana/quickcheck-state-machine"
 author:              "Stevan Andjelkovic"
 maintainer:          "stevan.andjelkovic@strath.ac.uk"
 copyright:           "Stevan Andjelkovic"
+license:             "MIT"
 
 extra-source-files:
 - README.md
