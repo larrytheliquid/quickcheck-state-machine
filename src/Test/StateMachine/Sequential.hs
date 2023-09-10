@@ -392,7 +392,7 @@ executeCommands StateMachine {..} hchan pid check =
         (CheckPrecondition, VFalse ce) -> return (PreconditionFailed (show ce))
         (CheckEverything,   VFalse ce) -> return (PreconditionFailed (show ce))
         _otherwise                    -> do
-          let ccmd = fromRight (error "executeCommands: impossible") (reify env scmd)
+          let ccmd = fromRight (error "executeCommands: impossible reify scmd") (reify env scmd)
           atomically (writeTChan hchan (pid, Invocation ccmd (S.fromList vars)))
           !ecresp <- lift $ fmap Right (semantics ccmd) `catch`
                             \(err :: SomeException) -> do
@@ -413,7 +413,7 @@ executeCommands StateMachine {..} hchan pid check =
                 atomically (writeTChan hchan (pid, Response cresp))
                 let env' = insertConcretes vars cvars env
                 let (sresp, counter') = runGenSym (mock smodel scmd) counter
-                let sresp' = fromRight (error "executeCommands: impossible") (reify env sresp)
+                let sresp' = fromRight (error "executeCommands: impossible reify sresp") (reify env' sresp)
                 case (check, logic (postcondition cmodel ccmd (sresp', cresp))) of
                   (CheckEverything, VFalse ce) -> return (PostconditionFailed (show ce))
                   _otherwise ->
